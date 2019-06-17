@@ -9,7 +9,7 @@ namespace ShoeslandShop.Model.Abstract
 {
     public abstract class Auditable : IAuditable
     {
-        public  DateTime? CreatedData { set; get; }
+        public  DateTime? CreatedDate { set; get; }
         [MaxLength(256)]
         public string CreatedBy { set; get; }
         public DateTime? UpdatedDate { set; get; }
