@@ -1,4 +1,5 @@
-﻿using ShoeslandShop.Model.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using ShoeslandShop.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShoeslandShop.Data
 {
-    public class ShoeslandShopDbContext : DbContext
+    public class ShoeslandShopDbContext : IdentityDbContext<ApplicationUser>
     {
         public ShoeslandShopDbContext() : base("ShoeslandShopConnection")
         {
@@ -38,9 +39,15 @@ namespace ShoeslandShop.Data
 
         public DbSet<Error> Errors { set; get; }
 
+        public static ShoeslandShopDbContext Create()
+        {
+            return new ShoeslandShopDbContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
